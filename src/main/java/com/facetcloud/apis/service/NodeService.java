@@ -15,8 +15,17 @@ public class NodeService {
     @Autowired
     private ConnectionGroupService connectionGroupService;
 
-    public VirtualNode saveNode(VirtualNode node) {
-        return nodeRepository.save(node);
+    public VirtualNode saveNode(String nodeName, String connectionGroupName) {
+        ConnectionGroup connectionGroup = connectionGroupService.findConnectionGroupByName(connectionGroupName);
+
+        if (connectionGroup != null) {
+            VirtualNode node = new VirtualNode();
+            node.setNodeName(nodeName);
+            node.setConnectionGroup(connectionGroup);
+            return nodeRepository.save(node);
+        } else {
+            throw new CustomException("Invalid input or connection group not found");
+        }
     }
 
     public void connectNodes(String parentNodeName, String childNodeName, String connectionGroupName) {

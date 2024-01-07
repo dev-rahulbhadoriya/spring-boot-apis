@@ -21,8 +21,6 @@ public class ConnectionGroup {
     @OneToMany(mappedBy = "connectionGroup")
     private List<VirtualNode> nodes;
 
-    // Getters and setters
-
     public Long getId() {
         return id;
     }

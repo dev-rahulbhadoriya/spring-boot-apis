@@ -1,5 +1,6 @@
 package com.facetcloud.apis.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class VirtualNode {
     @JoinColumn(name = "parent_node_id")
     private VirtualNode parentNode;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "connection_group_id")
     private ConnectionGroup connectionGroup;
 
