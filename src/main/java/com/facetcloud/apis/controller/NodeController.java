@@ -19,8 +19,9 @@ import com.facetcloud.apis.service.NodeService;
 public class NodeController {
     @Autowired
     private NodeService nodeService;
+
     @Autowired
-    private ConnectionGroupService  connectionGroupService;
+    private ConnectionGroupService connectionGroupService;  
 
     @PostMapping
     public VirtualNode createNode(@RequestBody VirtualNode node) {

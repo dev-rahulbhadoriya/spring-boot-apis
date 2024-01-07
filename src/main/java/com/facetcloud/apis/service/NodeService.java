@@ -1,12 +1,13 @@
 package com.facetcloud.apis.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.facetcloud.apis.exception.CustomException;
 import com.facetcloud.apis.model.ConnectionGroup;
 import com.facetcloud.apis.model.VirtualNode;
 import com.facetcloud.apis.repository.VirtualNodeRepository;
-
+@Service
 public class NodeService {
      @Autowired
     private VirtualNodeRepository nodeRepository;
