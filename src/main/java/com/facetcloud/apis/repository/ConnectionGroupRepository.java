@@ -7,4 +7,6 @@ import com.facetcloud.apis.model.ConnectionGroup;
 public interface ConnectionGroupRepository extends JpaRepository<ConnectionGroup, Long> {
 
     ConnectionGroup findByNodes_NodeName(String nodeName);
+    ConnectionGroup findByGroupName(String groupName);
+
 }

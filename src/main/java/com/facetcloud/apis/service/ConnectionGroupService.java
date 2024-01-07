@@ -17,5 +17,9 @@ public class ConnectionGroupService {
     public ConnectionGroup findConnectionGroupByNodeName(String nodeName) {
         return connectionGroupRepository.findByNodes_NodeName(nodeName);
     }
+
+    public ConnectionGroup findConnectionGroupByName(String groupName) {
+        return connectionGroupRepository.findByGroupName(groupName);
+    }
 }
 
