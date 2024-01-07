@@ -1,5 +1,4 @@
 package com.facetcloud.apis.model;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -10,13 +9,17 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class ConnectionGroup {
+  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "connectionGroup")
-    private List<VirtualNode> virtualNodes = new ArrayList<>();
+    private String groupName;
 
+    @OneToMany(mappedBy = "connectionGroup")
+    private List<VirtualNode> nodes;
+
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -26,13 +29,19 @@ public class ConnectionGroup {
         this.id = id;
     }
 
-    public List<VirtualNode> getVirtualNodes() {
-        return virtualNodes;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setVirtualNodes(List<VirtualNode> virtualNodes) {
-        this.virtualNodes = virtualNodes;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
-    
+    public List<VirtualNode> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<VirtualNode> nodes) {
+        this.nodes = nodes;
+    }
 }

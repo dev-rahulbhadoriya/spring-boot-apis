@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -13,11 +12,10 @@ public class VirtualNode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nodeName;
+
     @ManyToOne
-    @JoinColumn(name = "connection_group_id")
     private ConnectionGroup connectionGroup;
-
-
 
     public Long getId() {
         return id;
@@ -27,6 +25,13 @@ public class VirtualNode {
         this.id = id;
     }
 
+    public String getNodeName() {
+        return nodeName;
+    }
+
+    public void setNodeName(String nodeName) {
+        this.nodeName = nodeName;
+    }
 
     public ConnectionGroup getConnectionGroup() {
         return connectionGroup;
