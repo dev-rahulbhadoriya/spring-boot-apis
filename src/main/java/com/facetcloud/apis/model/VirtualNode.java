@@ -1,5 +1,5 @@
 package com.facetcloud.apis.model;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +21,7 @@ public class VirtualNode {
 
     @ManyToOne
     @JoinColumn(name = "connection_group_id")
+    @JsonBackReference 
     private ConnectionGroup connectionGroup;
 
 

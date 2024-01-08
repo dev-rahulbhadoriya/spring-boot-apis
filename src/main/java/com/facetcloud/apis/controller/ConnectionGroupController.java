@@ -1,12 +1,10 @@
 package com.facetcloud.apis.controller;
-
-import org.apache.catalina.connector.Response;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.facetcloud.apis.exception.CustomException;
 import com.facetcloud.apis.model.ConnectionGroup;
 import com.facetcloud.apis.service.ConnectionGroupService;
@@ -43,16 +41,15 @@ public class ConnectionGroupController {
         }
     }
 
-
-    @GetMapping("/findConnectionGroup/{nodeName}")
+    @GetMapping("/findbynode/{nodeName}")
     public ResponseEntity<?> findConnectionGroupByNodeName(@PathVariable String nodeName) {
         try {
-            ConnectionGroup connectionGroup = connectionGroupService.findConnectionGroupByNodeName(nodeName);
+            List<ConnectionGroup> foundGroups = connectionGroupService.findConnectionGroupByNodeName(nodeName);
 
-            if (connectionGroup != null) {
-                return ResponseEntity.ok(connectionGroup);
+            if (!foundGroups.isEmpty()) {
+                return ResponseEntity.ok(foundGroups);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Connection group not found for node name: " + nodeName);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Connection groups not found for node name: " + nodeName);
             }
         } catch (Exception e) {
             e.printStackTrace();
