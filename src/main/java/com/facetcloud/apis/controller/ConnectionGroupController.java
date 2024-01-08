@@ -23,7 +23,7 @@ public class ConnectionGroupController {
         return connectionGroupService.saveConnectionGroup(connectionGroup);
     }
 
-    @GetMapping("/find-by-node/{nodeName}")
+    @GetMapping("/findbynode/{nodeName}")
     public ConnectionGroup findConnectionGroupByNodeName(@PathVariable String nodeName) {
         return connectionGroupService.findConnectionGroupByNodeName(nodeName);
     }

@@ -22,7 +22,7 @@ public class NodeController {
     @Autowired
     private ConnectionGroupService connectionGroupService;  
 
-    @PostMapping("/create-node")
+    @PostMapping("/createNode")
     public ResponseEntity<String> createNode(
             @RequestParam("nodeName") String nodeName,
             @RequestParam("connectionGroupName") String connectionGroupName) {
@@ -31,7 +31,7 @@ public class NodeController {
         return ResponseEntity.ok("Node created successfully");
     }
 
-    @PostMapping("/connect-nodes")
+    @PostMapping("/connectNodes")
     public ResponseEntity<String> connectNodes(
             @RequestParam("parentNodeName") String parentNodeName,
             @RequestParam("childNodeName") String childNodeName,
@@ -40,7 +40,7 @@ public class NodeController {
         return ResponseEntity.ok("Nodes connected successfully");
     }
 
-    @GetMapping("/find-connection-group/{nodeName}")
+    @GetMapping("/findConnectionGroup/{nodeName}")
     public ResponseEntity<ConnectionGroup> findConnectionGroupByNodeName(@PathVariable String nodeName) {
         ConnectionGroup connectionGroup = connectionGroupService.findConnectionGroupByNodeName(nodeName);
         return ResponseEntity.ok(connectionGroup);

@@ -1,5 +1,7 @@
 package com.facetcloud.apis.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +12,7 @@ public interface VirtualNodeRepository extends JpaRepository<VirtualNode, Long> 
     @Query("SELECT vn FROM VirtualNode vn " +
     "JOIN FETCH vn.connectionGroup cg " +
     "WHERE vn.nodeName = :nodeName AND cg.groupName = :connectionGroupName")
-    VirtualNode findByNodeNameAndConnectionGroup_GroupName(@Param("nodeName") String nodeName,@Param("connectionGroupName") String connectionGroupName);
+    Optional<VirtualNode>findByNodeNameAndConnectionGroup_GroupName(@Param("nodeName") String nodeName,@Param("connectionGroupName") String connectionGroupName);
 }
     
 
