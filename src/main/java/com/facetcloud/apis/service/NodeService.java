@@ -18,7 +18,11 @@ public class NodeService {
     @Autowired
     private ConnectionGroupService connectionGroupService;
 
-    // node save in group
+    public VirtualNode getNodeByName(String nodeName, String connectionGroupName) {
+        return nodeRepository.findByNodeNameAndConnectionGroup_GroupName(nodeName, connectionGroupName)
+                .orElseThrow(() -> new CustomException("Node not found in the specified connection group", HttpStatus.NOT_FOUND));
+    }
+    
     public VirtualNode saveNode(String nodeName, String connectionGroupName) {
         ConnectionGroup connectionGroup = connectionGroupService.findConnectionGroupByName(connectionGroupName);
 
@@ -37,24 +41,31 @@ public class NodeService {
         }
     }
 
-    // child node connected to parent node
     public void connectNodes(String parentNodeName, String childNodeName, String connectionGroupName) {
-
         Optional<VirtualNode> parentNodeOptional = nodeRepository.findByNodeNameAndConnectionGroup_GroupName(parentNodeName, connectionGroupName);
         Optional<VirtualNode> childNodeOptional = nodeRepository.findByNodeNameAndConnectionGroup_GroupName(childNodeName, connectionGroupName);
-
+    
         if (parentNodeOptional.isPresent() && childNodeOptional.isPresent()) {
             VirtualNode parentNode = parentNodeOptional.get();
-            VirtualNode childNode = childNodeOptional.get();   
+            VirtualNode childNode = childNodeOptional.get();
+    
             if (parentNode.equals(childNode)) {
                 throw new CustomException("Invalid input: parentNode and childNode are the same", HttpStatus.BAD_REQUEST);
-            } 
-
+            }
+    
             childNode.setParentNode(parentNode);
             nodeRepository.save(childNode);
+        } else if (!parentNodeOptional.isPresent()) {
+            throw new CustomException("Parent node not found in the specified connection group", HttpStatus.BAD_REQUEST);
+        } else if (!childNodeOptional.isPresent()) {
+            throw new CustomException("Child node not found in the specified connection group", HttpStatus.BAD_REQUEST);
         } else {
             throw new CustomException("Invalid input or nodes not found", HttpStatus.BAD_REQUEST);
         }
     }
 
+    public boolean isNodeExistsInGroup(String nodeName, String connectionGroupName) {
+        return nodeRepository.existsByNodeNameAndConnectionGroup_GroupName(nodeName, connectionGroupName);
+    }
+    
 }

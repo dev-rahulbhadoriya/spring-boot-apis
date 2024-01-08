@@ -13,6 +13,10 @@ public interface VirtualNodeRepository extends JpaRepository<VirtualNode, Long> 
     "JOIN FETCH vn.connectionGroup cg " +
     "WHERE vn.nodeName = :nodeName AND cg.groupName = :connectionGroupName")
     Optional<VirtualNode>findByNodeNameAndConnectionGroup_GroupName(@Param("nodeName") String nodeName,@Param("connectionGroupName") String connectionGroupName);
+
+    VirtualNode findByNodeName(String nodeName);
+    boolean existsByNodeNameAndConnectionGroup_GroupName(String nodeName, String connectionGroupName);
+
 }
     
 

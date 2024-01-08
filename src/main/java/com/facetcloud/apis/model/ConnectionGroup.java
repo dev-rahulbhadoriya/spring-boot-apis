@@ -1,6 +1,7 @@
 package com.facetcloud.apis.model;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,7 @@ public class ConnectionGroup {
 
     private String groupName;
 
-    @OneToMany(mappedBy = "connectionGroup")
+    @OneToMany(mappedBy = "connectionGroup", cascade = CascadeType.ALL)
     private List<VirtualNode> nodes;
 
     public Long getId() {
