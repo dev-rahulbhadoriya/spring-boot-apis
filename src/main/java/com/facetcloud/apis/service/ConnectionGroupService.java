@@ -2,7 +2,10 @@ package com.facetcloud.apis.service;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import com.facetcloud.apis.exception.CustomException;
 import com.facetcloud.apis.model.ConnectionGroup;
 import com.facetcloud.apis.repository.ConnectionGroupRepository;
 
@@ -29,7 +32,11 @@ public class ConnectionGroupService {
         }
 
     public ConnectionGroup findConnectionGroupByName(String groupName) {
-        return connectionGroupRepository.findByGroupName(groupName);
+        ConnectionGroup connectionGroup = connectionGroupRepository.findByGroupName(groupName);
+         if (connectionGroup == null) {
+        throw new CustomException("Connection group not found", HttpStatus.NOT_FOUND);
+        }
+    return connectionGroup;
     }
 }
 
