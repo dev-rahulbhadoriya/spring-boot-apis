@@ -34,9 +34,9 @@ public class ConnectionGroupService {
     public ConnectionGroup findConnectionGroupByName(String groupName) {
         ConnectionGroup connectionGroup = connectionGroupRepository.findByGroupName(groupName);
          if (connectionGroup == null) {
-        throw new CustomException("Connection group not found", HttpStatus.NOT_FOUND);
+            throw new CustomException("Connection group not found", HttpStatus.NOT_FOUND);
         }
-    return connectionGroup;
+        return connectionGroup;
     }
 }
 

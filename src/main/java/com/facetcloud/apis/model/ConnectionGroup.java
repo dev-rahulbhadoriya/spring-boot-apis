@@ -1,4 +1,5 @@
 package com.facetcloud.apis.model;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -23,8 +24,13 @@ public class ConnectionGroup {
 
     @OneToMany(mappedBy = "connectionGroup", cascade = CascadeType.ALL)
     @JsonManagedReference 
-    private List<VirtualNode> nodes;
+    private List<VirtualNode> nodes = new ArrayList<>();
 
+    public void addNode(VirtualNode node) {
+        nodes.add(node);
+        node.setConnectionGroup(this);
+    }
+    
     public Long getId() {
         return id;
     }

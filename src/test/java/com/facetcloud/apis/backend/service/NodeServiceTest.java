@@ -1,11 +1,10 @@
 package com.facetcloud.apis.backend.service;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-
 import static org.mockito.Mockito.*;
-
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -71,6 +70,24 @@ public class NodeServiceTest {
         VirtualNode connectedChildNode = nodeService.getNodeByName(childNode.getNodeName(), connectionGroup.getGroupName());
 
     });
+
+    }
+
+    @Test
+    public void testGetConnectionGroupByNodeName(){
+        ConnectionGroup connectionGroup = new ConnectionGroup();
+        connectionGroup.setGroupName("TestGroup");
+        connectionGroupService.saveConnectionGroup(connectionGroup);
+    
+        VirtualNode testNode = new VirtualNode();
+        testNode.setNodeName("TestNode");
+        testNode.setConnectionGroup(connectionGroup);
+        connectionGroup.getNodes().add(testNode);
+        connectionGroupService.saveConnectionGroup(connectionGroup);
+    
+        List<ConnectionGroup> foundGroups = connectionGroupService.findConnectionGroupByNodeName("TestNode");
+    
+        assertTrue(foundGroups.isEmpty(), "No connection group should be found for the specified node name");
 
     }
 
